@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class AddMethods {
 
     public static void addFio(ArrayList<String> array, String string,int index) {
-        if(ValidDate.isDateValid(string))
-        {array.set(3, string);
+        if(ValidDate.isDateValid(string.strip()))
+        {array.set(3, string.strip());
         return;}
         if (isAlphaRus(string) || isAlphaUsa(string)) {
-            array.set(index, string);
+            array.set(index, string.strip());
         } 
     }
 

@@ -1,13 +1,6 @@
-import javax.sound.midi.Soundbank;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
-import java.util.zip.DataFormatException;
-
 public class Main {
-
     /*Напишите приложение, которое будет запрашивать у пользователя следующие данные, разделенные пробелом:
 
 Фамилия Имя Отчество дата _ рождения номер _ телефона пол
@@ -29,28 +22,9 @@ public class Main {
 Однофамильцы должны записаться в один и тот же файл, в отдельные строки.
 Не забудьте закрыть соединение с файлом.
 При возникновении проблемы с чтением-записью в файл, исключение должно быть корректно обработано, пользователь должен увидеть стектрейс ошибки.*/
+    static ArrayList<String> infoList = CreateInfo.createInfoList();
     public static void main(String[] args) {
-        ArrayList<String> infoList = new ArrayList<>();
-        for (int i = 0; i<6;i++){
-        infoList.add(null);}
+        CreateInfo.toString(infoList);
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Введите данные через пробел: фамилия имя отчество// дата рождения в формате dd.mm.YYYY // номер телефона // пол (f/m)");
-            ArrayList<String> info = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
-            try {
-            AddMethods.addFio(infoList, info.getFirst(),0);
-            AddMethods.addFio(infoList, info.get(1),1);
-            AddMethods.addFio(infoList, info.get(2),2);
-            AddMethods.addDate(infoList, info.get(3),3);
-            AddMethods.addPhoneNumber(infoList, info.get(4),4);
-            AddMethods.addSex(infoList, info.get(5),5);}
-            catch(IndexOutOfBoundsException e){
-                System.out.println("Недостаточно данных");
-                for (int i = 0; i < infoList.size(); i++) {
-                    System.out.print(i + " ");
-                    System.out.println(infoList.get(i));
-                }
-            }
-        }
     }
 }
