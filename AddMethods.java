@@ -2,19 +2,28 @@ import java.util.ArrayList;
 
 public class AddMethods {
 
-    public static void addFio(ArrayList<String> array, String string,int index) {
-        if(ValidDate.isDateValid(string.strip()))
-        {array.set(3, string.strip());
-        return;}
+    public static void addFio(ArrayList<String> array, String string, int index) {
+        if (ValidDate.isDateValid(string.strip())) {
+            array.set(3, string.strip());
+            return;
+        }
+        if (isPhoneNumber(string.strip())) {
+            array.set(4, string.strip());
+            return;
+        }
+        if (isSexValid(string.strip())) {
+            array.set(5, string.strip());
+            return;
+        }
         if (isAlphaRus(string) || isAlphaUsa(string)) {
             array.set(index, string.strip());
-        } 
+        }
     }
 
     protected static boolean isAlphaRus(String string) {
         if (string == null) return false;
-        for (int i = 0; i < string.length(); i++) {
-            char s = string.charAt(i);
+        for (int i = 0; i < string.strip().length(); i++) {
+            char s = string.strip().charAt(i);
             if (!(s >= 'А' && s <= 'Я') && !(s >= 'а' && s <= 'я')) {
                 return false;
             }
@@ -24,8 +33,8 @@ public class AddMethods {
 
     protected static boolean isAlphaUsa(String string) {
         if (string == null) return false;
-        for (int i = 0; i < string.length(); i++) {
-            char s = string.charAt(i);
+        for (int i = 0; i < string.strip().length(); i++) {
+            char s = string.strip().charAt(i);
             if (!(s >= 'A' && s <= 'Z') && !(s >= 'a' && s <= 'z')) {
                 return false;
             }
@@ -34,41 +43,44 @@ public class AddMethods {
     }
 
     public static boolean isPhoneNumber(String string) {
-        long phoneNumber = 0;
-        try {
-            phoneNumber = Long.parseLong(string);
-            return true;
-        } catch (NumberFormatException e) {
-            System.out.println("Формат номера телефона не поддерживается");
+
+        for (int i = 0; i < string.length(); i++)
+            try {
+                int res = Integer.parseInt(String.valueOf(string.charAt(i)));
+
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        return true;
+    }
+
+    public static boolean isSexValid(String string) {
+        String[] sex = {"f", "m", "female", "male", "ж", "м", "жен", "муж", "женский", "мужской"};
+        for (String s : sex) {
+            if (s.equals(string.strip())) {
+                return true;
+            }
         }
         return false;
     }
 
-    public static void addPhoneNumber(ArrayList<String> array, String string,int index) {
-
-        if (isPhoneNumber(string) && (string.length() >= 5 && string.length() <= 20)) {
-            array.set(index,string);
-        } 
-    }
-
-    public static void addDate(ArrayList<String> array, String string,int index) {
-        if (ValidDate.isDateValid(string)) {
-            array.set(index,string);
-        } 
-    }
-
-    public static final void addSex(ArrayList<String> array, String string,int index) {
-        String[] sex = {"f", "m", "female", "male", "ж", "м", "жен", "муж", "женский", "мужской"};
-        String res = null;
-        for (String s : sex) {
-            if (s.equals(string)) {
-                res = s;
-                break;}
+    public static void addPhoneNumber(ArrayList<String> array, String string, int index) {
+        if (isPhoneNumber(string.strip()) && (string.strip().length() >= 5 && string.strip().length() <= 20)) {
+            array.set(index, string.strip());
         }
-        try{
-            array.set(index,String.format("%s",res.charAt(0)));}
-        catch(NullPointerException e){
-            System.out.println("Неверно указан пол");
-           }
+    }
+
+    public static void addDate(ArrayList<String> array, String string, int index) {
+        if (ValidDate.isDateValid(string.strip())) {
+            array.set(index, string);
+        }
+    }
+
+
+    public static void addSex(ArrayList<String> array, String string, int index) {
+        if (isSexValid(string.strip())) {
+            array.set(index, String.format("%s", string.strip().charAt(0)));
+        }
+
     }
 }
