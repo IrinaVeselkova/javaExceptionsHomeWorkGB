@@ -1,27 +1,29 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddMethods {
-
-    public static void addFio(ArrayList<String> array, String string, int index) {
+    static final String[] DATA_EN = {"Surname","Name","Lastname","Birthday","PhoneNumber","Sex"};
+    static final String[] DATA_RU = {"Фамилия","Имя","Отчество","Дата рождения","Номер телефона","Пол"};
+    public static void addFio(ArrayList<String> array, String string, int index) throws NullPointerException{
         if (ValidDate.isDateValid(string.strip())) {
             array.set(3, string.strip());
             return;
         }
-        if (isPhoneNumber(string.strip())) {
-            array.set(4, string.strip());
+        if (isPhoneNumber(string)) {
+            array.set(4, string.strip().strip());
             return;
         }
-        if (isSexValid(string.strip())) {
-            array.set(5, string.strip());
+        if (isSexValid(string)) {
+            array.set(5, string.strip().strip());
             return;
         }
-        if (isAlphaRus(string) || isAlphaUsa(string)) {
+        if (isAlphaRus(string.strip()) || isAlphaUsa(string.strip())) {
             array.set(index, string.strip());
         }
     }
 
     protected static boolean isAlphaRus(String string) {
-        if (string == null) return false;
+        if (string.equals(CreateInfo.OUT_DATA)) return false;
         for (int i = 0; i < string.strip().length(); i++) {
             char s = string.strip().charAt(i);
             if (!(s >= 'А' && s <= 'Я') && !(s >= 'а' && s <= 'я')) {
@@ -32,7 +34,7 @@ public class AddMethods {
     }
 
     protected static boolean isAlphaUsa(String string) {
-        if (string == null) return false;
+        if (string.equals(CreateInfo.OUT_DATA)) return false;
         for (int i = 0; i < string.strip().length(); i++) {
             char s = string.strip().charAt(i);
             if (!(s >= 'A' && s <= 'Z') && !(s >= 'a' && s <= 'z')) {

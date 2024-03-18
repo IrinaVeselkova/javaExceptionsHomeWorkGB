@@ -1,5 +1,6 @@
 
 import java.util.*;
+
 public class Main {
     /*Напишите приложение, которое будет запрашивать у пользователя следующие данные, разделенные пробелом:
 Фамилия Имя Отчество дата _ рождения номер _ телефона пол
@@ -16,9 +17,38 @@ public class Main {
 Однофамильцы должны записаться в один и тот же файл, в отдельные строки.
 Не забудьте закрыть соединение с файлом.
 При возникновении проблемы с чтением-записью в файл, исключение должно быть корректно обработано, пользователь должен увидеть стектрейс ошибки.*/
-    static ArrayList<String> infoList = CreateInfo.createInfoList();
+
+
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите данные через пробел: фамилия имя отчество// дата рождения в формате dd.mm.YYYY // номер телефона // пол (f/m)");
+        ArrayList<String> info = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));
+        ArrayList<String> infoList = CreateInfo.createInfoList(info);
         CreateInfo.toString(infoList);
+
+        int index = CreateInfo.checkInfo(infoList);
+        while (index != -1) {
+            String string = " ";
+            System.out.println("Пожалуйста, введите данные. " + AddMethods.DATA_RU[index] + " -> ");
+            string = scanner.nextLine();
+            switch (index) {
+                case 0, 1, 2:
+                    AddMethods.addFio(infoList, string, index);
+                    break;
+                case 3:
+                    AddMethods.addDate(infoList, string, index);
+                    break;
+                case 4:
+                    AddMethods.addPhoneNumber(infoList, string, index);
+                    break;
+                case 5:
+                    AddMethods.addSex(infoList, string, index);
+                    break;
+            }
+
+            index = CreateInfo.checkInfo(infoList);
+        }
+        scanner.close();
 
     }
 }
