@@ -22,7 +22,7 @@ public class Main {
 При возникновении проблемы с чтением-записью в файл, исключение должно быть корректно обработано, пользователь должен увидеть стектрейс ошибки.*/
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите данные через пробел: фамилия имя отчество// дата рождения в формате dd.mm.YYYY // номер телефона // пол (f/m)");
         ArrayList<String> info = new ArrayList<>(Arrays.asList(scanner.nextLine().split(" ")));

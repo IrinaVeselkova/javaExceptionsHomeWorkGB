@@ -82,7 +82,6 @@ public class AddMethods {
 
     public static void addSex(ArrayList<String> array, String string, int index) {
         String[] sex_f = {"f", "female", "ж", "жен", "женский"};
-
         if (isSexValid(string.strip())) {
             for (String s : sex_f) {
                 if (s.equals(string.strip())) {
@@ -91,6 +90,6 @@ public class AddMethods {
                 }
                 array.set(index, "m");
             }
-
         }
-    }}
+    }
+}
