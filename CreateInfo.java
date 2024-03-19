@@ -46,11 +46,13 @@ public class CreateInfo {
         }
     }
 
-    public static void toString(ArrayList<String> array) {
+    public static StringBuilder toString(ArrayList<String> array) {
+        StringBuilder string = new StringBuilder();
         for (int i = 0; i < array.size(); i++) {
-            System.out.print(i + " ");
-            System.out.println(array.get(i));
+            string= new StringBuilder(string +" " + array.get(i));
+
         }
+        return string;
     }
 }
 

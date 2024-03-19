@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddMethods {
-    static final String[] DATA_EN = {"Surname","Name","Lastname","Birthday","PhoneNumber","Sex"};
-    static final String[] DATA_RU = {"Фамилия","Имя","Отчество","Дата рождения","Номер телефона","Пол"};
-    public static void addFio(ArrayList<String> array, String string, int index) throws NullPointerException{
+    static final String[] DATA_EN = {"Surname", "Name", "Lastname", "Birthday", "PhoneNumber", "Sex"};
+    static final String[] DATA_RU = {"Фамилия", "Имя", "Отчество", "Дата рождения", "Номер телефона", "Пол"};
+
+    public static void addFio(ArrayList<String> array, String string, int index) throws NullPointerException {
         if (ValidDate.isDateValid(string.strip())) {
             array.set(3, string.strip());
             return;
@@ -18,7 +19,7 @@ public class AddMethods {
             return;
         }
         if (isAlphaRus(string.strip()) || isAlphaUsa(string.strip())) {
-            array.set(index, string.strip());
+            array.set(index, (string.strip().substring(0, 1).toUpperCase() + string.strip().substring(1)));
         }
     }
 
@@ -80,9 +81,16 @@ public class AddMethods {
 
 
     public static void addSex(ArrayList<String> array, String string, int index) {
-        if (isSexValid(string.strip())) {
-            array.set(index, String.format("%s", string.strip().charAt(0)));
-        }
+        String[] sex_f = {"f", "female", "ж", "жен", "женский"};
 
-    }
-}
+        if (isSexValid(string.strip())) {
+            for (String s : sex_f) {
+                if (s.equals(string.strip())) {
+                    array.set(index, "f");
+                    return;
+                }
+                array.set(index, "m");
+            }
+
+        }
+    }}

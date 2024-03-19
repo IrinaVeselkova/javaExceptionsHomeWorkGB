@@ -3,7 +3,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class ValidDate {
-    final static String DATE_FORMAT = "dd.mm.yyyy";
+    final static String DATE_FORMAT = "dd.MM.yyyy";
 
     public static boolean isDateValid(String date) {
         try {
